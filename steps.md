@@ -5,6 +5,6 @@
    
 
 2. install `react-query` library:
-    - npm i @tanstack/react-query
+    - npm i '@tanstack/react-query'
 
 
