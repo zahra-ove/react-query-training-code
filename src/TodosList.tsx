@@ -17,12 +17,13 @@ function TodosList() {
             .then(res => res.data)
 
 
-    const { data: todos, error } = useQuery<Todop[], Error>({
+    const { data: todos, error, isLoading } = useQuery<Todop[], Error>({
         queryKey: ['todos'],
         queryFn: fetchToDos
     });
 
 
+    if(isLoading) return <p>Loading ...</p>
     if(error) return <p>{error.message}</p>
 
     return (
