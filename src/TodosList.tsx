@@ -17,12 +17,13 @@ function TodosList() {
             .then(res => res.data)
 
 
-    const { data: todos } = useQuery({
+    const { data: todos, error } = useQuery<Todop[], Error>({
         queryKey: ['todos'],
         queryFn: fetchToDos
     });
 
 
+    if(error) return <p>{error.message}</p>
 
     return (
         <ul className="list-group">
