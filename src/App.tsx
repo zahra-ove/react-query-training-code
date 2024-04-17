@@ -1,11 +1,13 @@
 import './App.css'
-import TodosList from "./TodosList.tsx";
+// import TodosList from "./TodosList.tsx";
+import PostsList from "./components/PostsList.tsx";
 
 function App() {
 
   return (
     <>
-      <TodosList />
+      {/*<TodosList />*/}
+      <PostsList />
     </>
   )
 }
