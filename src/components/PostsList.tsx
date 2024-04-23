@@ -1,11 +1,10 @@
 import usePost from "../hooks/usePost.ts";
 import 'bootstrap/dist/css/bootstrap.css';
-import { useState } from "react";
+import { Fragment } from "react";
 
 function PostsList() {
     const pageSize = 10;
-    const [page, setPage] = useState(1);
-    const {data, error, isLoading} = usePost({page, pageSize});
+    const {data, error, isLoading, fetchNextPage, isFetchingNextPage} = usePost({pageSize});
 
 
     if (error) return <p>{error.message}</p>
@@ -14,19 +13,20 @@ function PostsList() {
     return (
         <>
             <ul className="list-group">
-                {data?.map(post =>
-                    <li className="list-group-item" key={post.id}>{post.title}</li>
+                {data.pages.map((page, index) =>
+                    <Fragment key={index}>
+                        {page.map(post => <li className="list-group-item" key={post.id}>{post.title}</li>  )}
+                    </Fragment>
                 )}
             </ul>
 
             <button
                 className="btn btn-primary"
-                disabled={page === 1}
-                onClick={() => setPage(page - 1)}>Previous</button>
+                disabled={isFetchingNextPage}
+                onClick={ () => fetchNextPage() }>
+                {isFetchingNextPage ? 'Loading ...' : 'Load More'}
+            </button>
 
-            <button
-                className="btn btn-primary mx-1"
-                onClick={() => setPage(page + 1)}>Next</button>
         </>
     );
 }
